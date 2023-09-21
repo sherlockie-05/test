@@ -1,0 +1,399 @@
+body {
+  background-color: #c0c7cf;
+  color: white;
+  margin-top: 2px;
+  width: 100%;
+  margin-left: 0;
+}
+
+.contain {
+  display: inline-block;
+  border: 5px solid;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  padding-bottom: 5px;
+}
+
+input {
+  box-sizing: border-box;
+  padding: 12px;
+  margin: 8px;
+  display: inline-block;
+  width: 100%;
+  border-radius: 5px;
+}
+
+select {
+  box-sizing: border-box;
+  padding: 12px;
+  margin: 8px;
+  display: inline-block;
+  width: 100%;
+  border-radius: 5px;
+}
+
+select {
+  box-sizing: border-box;
+  padding: 12px;
+  margin: 8px;
+  display: inline-block;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  color: black;
+  background-color: white;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #778899;
+  color: white;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 0;
+  padding-bottom: 5px;
+}
+
+.submit-button {
+  width: fit-content;
+  float: right;
+  margin-bottom: 10px;
+}
+
+.certBtn {
+  width: fit-content;
+  margin-bottom: 10px;
+}
+
+.smicon {
+  width: fit-content;
+  float: right;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  position: relative;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+button {
+  margin-right: 5px;
+}
+
+.Btn-Style {
+  border-radius: 5px;
+  padding: 5px;
+  color: white;
+  border-color: #fbeec1;
+  background-color: #3e6ea7;
+}
+
+.header {
+  background-color: #778899;
+  margin-top: 0;
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.res {
+  text-align: center;
+  color: white;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.smartlink-Heading {
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0;
+}
+
+.configForm {
+  margin-top: 1px;
+  padding: 5px 20px;
+}
+
+.register {
+  padding: 10px;
+}
+
+.login {
+  padding: 20px;
+  padding-bottom: 15px;
+  margin-bottom: 0;
+  box-shadow: 0px 0px 5px 5px lightslategray;
+  transition: 0.3s;
+  border-radius: 5px;
+  background-color: #778899;
+  border: none;
+}
+
+.login input {
+  border-color: white;
+}
+input:focus {
+  outline: none;
+}
+
+.userForm {
+  padding: 10px;
+}
+
+.userTable {
+  margin: auto;
+  width: 80%;
+}
+
+.act label {
+  margin-top: 0;
+  margin-bottom: 20px;
+  padding-top: 15px;
+  padding-bottom: 20px;
+  float: left;
+}
+
+#Active {
+  display: inline;
+}
+
+.Active {
+  display: inline-block;
+}
+
+.sign {
+  text-align: center;
+}
+
+#Status {
+  box-sizing: border-box;
+  padding: 12px;
+  margin: 6px;
+  display: inline-block;
+  width: 5%;
+  border-radius: 5px;
+  float: left;
+}
+
+.act {
+  margin-bottom: 30px;
+}
+
+.footer {
+  position: fixed;
+  text-align: center;
+  bottom: 0px;
+  width: 100%;
+  background-color: #778899;
+}
+
+.heading {
+  font-size: 24px;
+  margin: 0;
+  padding-top: 8px;
+  padding-bottom: 16px;
+}
+
+.smartlink-table {
+  margin-bottom: 50px;
+}
+
+.smartlink-table > thead > tr > th {
+  text-align: center;
+}
+
+.smartlink-table > tbody > tr > td {
+  text-align: center;
+}
+
+.dicom-table > thead > tr > th {
+  text-align: center;
+}
+
+.dicom-table > tbody > tr > td {
+  text-align: center;
+}
+
+.icon {
+  height: 24px;
+  width: 24px;
+}
+
+.client-icon {
+  height: 27px;
+  width: 28px;
+  margin-top: -5px;
+}
+
+.icon1 {
+  height: 14px;
+  width: 11px;
+  margin-right: 0px;
+  margin-left: 12px;
+}
+
+.icon-small {
+  height: 28px;
+  width: 28px;
+}
+
+.download {
+  width: 20px;
+}
+.add {
+  width: 40px;
+}
+
+.certificate {
+  float: right;
+  width: fit-content;
+}
+
+.title {
+  display: flex;
+  background-color: #778899;
+  margin-bottom: 10px;
+  margin-top: 0px;
+  margin-left: -6%;
+  width: 109.5%;
+  color: white;
+  padding-left: 10px;
+  align-content: center;
+  border-radius: 3px;
+  margin-right: 5px;
+}
+
+.mt0 {
+  margin-top: 0 !important;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  padding-top: 4px;
+}
+
+.space {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.genCert {
+  margin-right: 80px;
+}
+
+/*----------Popup----------------------*/
+.pb-0 {
+  padding-bottom: 0 !important;
+}
+
+.popup {
+  color: black;
+  margin-left: -2%;
+  width: 102%;
+  height: 100%;
+  background-color: #01010139;
+  position: absolute;
+  top: 0;
+}
+
+@keyframes fadeIn {
+  0% {
+    top: 28%;
+  }
+
+  100% {
+    top: 30%;
+  }
+}
+
+/* .popup-inner {
+  position: relative;
+  padding: 32px;
+  width: 100%;
+  max-width: 500px;
+  background-color: #fff; 
+}
+
+*/
+.popup-inner {
+  font-size: small;
+  margin: 0;
+  margin-top: 9.5%;
+  width: fit-content;
+  background-color: #c0c7cf;
+  border: 1px solid #9db7e870;
+  position: absolute;
+  padding: 20px;
+  padding-top: 0;
+  left: 50%;
+  top: 30%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+  -webkit-box-shadow: 8px 8px 24px 0px rgb(213, 216, 243);
+  -moz-box-shadow: 8px 8px 24px 0px rgb(213, 216, 243);
+  box-shadow: 8px 8px 24px 0px rgba(81, 81, 81, 0.77);
+  border-radius: 10px;
+
+  animation: fadeIn 0.5s;
+}
+
+.popup-inner input {
+  width: 95%;
+  height: 35px;
+  border-color: white;
+}
+
+.popup-inner select {
+  width: 95%;
+  height: 45px;
+}
+
+.close-btn {
+  border: 0px;
+  padding: 10px;
+  background-color: #d1d1d1;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+header h2 {
+  font-family: arial;
+  padding-bottom: 30px;
+}
+
+.popup-content {
+  padding-bottom: 30px;
+}
+
+.org_name{
+  position: absolute;
+  top: 0px;
+  right: 10px;
+
+}

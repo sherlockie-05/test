@@ -1,0 +1,1443 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+      "title": "Admin UI Service API",
+      "description": "This Documents gives a detail information on <i>Admin UI Service API</i>",
+      "version": "0.1.0"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:5212",
+        "description": "Local Development Server"
+      },
+      {
+        "url": "http://18.144.4.72:5212",
+        "description": "Client Deployment Server"
+      }
+    ],
+    "tags": [
+      {
+        "name": "healthcheck",
+        "description": "Application's status"
+      },
+      {
+        "name": "user",
+        "description": "Every operations in user"
+      },
+      {
+        "name": "smartlink",
+        "description": "Every operations in smartlink"
+      },
+      {
+        "name": "installer",
+        "description": "Every operations in installer"
+      },
+      {
+        "name": "certificate",
+        "description": "Every operations in certificate"
+      }
+    ],
+    "paths": {
+      "/admin/smartlink/healthcheck": {
+        "get": {
+          "tags": [
+            "healthcheck"
+          ],
+          "summary": "Get the healthstatus of the application",
+          "responses": {
+            "200": {
+              "description": "Returns status of our application",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SuccessResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/admin/user/login": {
+        "post": {
+          "tags": [
+            "user"
+          ],
+          "summary": "User login",
+          "requestBody": {
+            "description": "Username and password to login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Returns user details if user exists",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UserLoginResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/admin/user/details/{org_id}": {
+        "get": {
+          "tags": [
+            "user"
+          ],
+          "summary": "Get organisation details",
+          "parameters": [
+            {
+              "name": "org_id",
+              "in": "path",
+              "description": "Organisation ID to login",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Returns Organisation details",
+              "content": {
+                "application/json": {
+                    "schema": {
+                        "$ref": "#/components/schemas/ClientDetailsResponse"
+                    }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/admin/smartlink/": {
+        "get": {
+          "tags": [
+            "smartlink"
+          ],
+          "summary": "Get SmartLink details in an organisation",
+          "parameters": [
+            {
+              "name": "org_id",
+              "in": "query",
+              "description": "Organisation ID to get all SmartLink",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Returns all SmartLink in an Organisation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/SmartLinkFetch"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "smartlink"
+          ],
+          "summary": "Update smartlink name",
+          "requestBody": {
+            "description": "SmartLink details to be updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SmartlinkUpdationRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Returns 200 status code response if SmartLink details are updated",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GenericResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "smartlink"
+          ],
+          "summary": "Create new smartlink",
+          "requestBody": {
+            "description": "Details to create a new SmartLink",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SmartlinkCreationRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Returns SmartLink details created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SmartlinkCreationResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/admin/smartlink/{id}": {
+        "delete": {
+          "tags": [
+            "smartlink"
+          ],
+          "summary": "Delete a SmartLink",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Delete SmartLink of particular Id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Returns 200 status code response if SmartLink details are deleted",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GenericResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/admin/smartlink/{id}/configuration": {
+        "get": {
+          "tags": [
+            "smartlink"
+          ],
+          "summary": "Get particular SmartLink configuration",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "SmartLink ID for which configuration is to be fetched",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Returns SmartLink configuration details",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SmartLinkConfigurationResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/admin/smartlink/{id}/connection": {
+        "get": {
+          "tags": [
+            "smartlink"
+          ],
+          "summary": "Get all connections in SmartLink",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "SmartLink ID for which connections are to be fetched",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Returns connections in that particular SmartLink",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GetConnection"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "smartlink"
+          ],
+          "summary": "Update existing connection or else create new connection for the SmartLink",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "SmartLink ID for which connection is to be updated or created",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "Connection details to be updated or created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConnectionUpdationRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Connection details are updated",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ConnectionUpdationResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "smartlink"
+          ],
+          "summary": "Create new connection for the SmartLink",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "SmartLink ID for which connection is to be created",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "Connection details to be created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConnectionCreationRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Connection is created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ConnectionCreationResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/admin/smartlink/{id}/connection/{conn_id}": {
+        "delete": {
+          "tags": [
+            "smartlink"
+          ],
+          "summary": "Delete a particular connection",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "SmartLink ID for which connection is to be deleted",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "conn_id",
+              "in": "path",
+              "description": "Connection ID which is to be deleted",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Connection details are deleted",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GenericResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/admin/smartlink/downloadconfig": {
+        "post": {
+          "tags": [
+            "smartlink"
+          ],
+          "summary": "Downloads SmartLink configuration details",
+          "requestBody": {
+            "description": "Organisation and SmartLink ID for which configuration is to be downloaded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Id"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Returns SmartLink configuration details",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Configuration"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/admin/smartlink/installer": {
+        "get": {
+          "tags": [
+            "installer"
+          ],
+          "summary": "Get latest installer details",
+          "responses": {
+            "200": {
+              "description": "Returns latest installer details",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LatestInstallerResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "installer"
+          ],
+          "summary": "Update latest installer details",
+          "requestBody": {
+            "description": "Latest installer details which is to be updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LatestInstallerUpdateRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GenericResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/admin/smartlink/{id}/version": {
+        "get": {
+          "tags": [
+            "installer"
+          ],
+          "summary": "Get installer version in particular SmartLink",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "SmartLink ID for which installer version is to be fetched",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Retuns 200 status code if installer version is fetched",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/InstallerVersionResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/admin/smartlink/version": {
+        "put": {
+          "tags": [
+            "installer"
+          ],
+          "summary": "Updates installer version installed in particular SmartLink",
+          "requestBody": {
+            "description": "Installer details to be updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstallerVersionUpdateRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Retuns 200 status code if installer version is updated",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GenericResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/admin/smartlink/downloadurl": {
+        "get": {
+          "tags": [
+            "installer"
+          ],
+          "summary": "Get presigned URL for installer",
+          "responses": {
+            "200": {
+              "description": "Retuns Presigned URL for installer",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/InstallerDownloadUrl"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/admin/smartlink/{id}/status": {
+        "get": {
+          "tags": [
+            "smartlink"
+          ],
+          "summary": "Get SmartLink status",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "SmartLink ID for which status is to be Fetched",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Returns status and last status updatedof the SmartLink",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/StatusFetchResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "smartlink"
+          ],
+          "summary": "Update SmartLink status",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "SmartLink ID for which status is to be updated",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "Organisation, SmartLink ID and status which is to be updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusUpdateRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Returns 200 status code if status ids updated",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/StatusUpdateResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/admin/smartlink/notify": {
+        "post": {
+          "tags": [
+            "smartlink"
+          ],
+          "summary": "Notifies EXO Microservice",
+          "requestBody": {
+            "description": "Notification details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Notify"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Returns 200 status code if EXO Microservice is notified",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GenericResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/admin/smartlink/certificate": {
+        "post": {
+          "tags": [
+            "certificate"
+          ],
+          "summary": "Generate Organisation certificate",
+          "requestBody": {
+            "description": "Organisation ID and certificate password to generate certificate",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CertificateGeneration"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Returns 200 status code if certificate is generated",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GenericResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/admin/smartlink/certificate/root": {
+        "get": {
+          "tags": [
+            "certificate"
+          ],
+          "summary": "Get Root certificate",
+          "responses": {
+            "200": {
+              "description": "Returns root certificate file",
+              "content": {}
+            }
+          }
+        }
+      },
+      "/admin/smartlink/certificate/{org_id}": {
+        "get": {
+          "tags": [
+            "certificate"
+          ],
+          "summary": "Get certificate",
+          "parameters": [
+            {
+              "name": "org_id",
+              "in": "path",
+              "description": "Organisation ID for which certificate is to be returned",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Returns certificate file",
+              "content": {}
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "GenericResponse": {
+          "type": "object",
+          "properties": {
+            "status_code": {
+              "type": "number",
+              "example": 200
+            },
+            "message": {
+              "type": "string",
+              "example": null
+            },
+            "data": {
+              "type": "string",
+              "example": null
+            }
+          }
+        },
+        "ClientDetailsResponse": {
+            "type": "object",
+            "properties": {
+                "status_code": {
+                    "type": "number",
+                    "example": 200
+                },
+                "message": {
+                    "type": "string",
+                    "example": null
+                },
+                "data": {
+                    "type": "string",
+                    "example": "{\"org_id\":\"c37d2796-2886-49f3-bcdd-f71240e1f936\",\"name\":\"John\",\"password\":\"John@31\",\"country\":\"US\",\"state\":\"California\",\"city\":\"San Francisco\",\"org_name\":\"NewAge Health\",\"organizationalUnit\":\"Pulmonology \",\"commonname\":\"newagehealth.org\",\"email\":\"hospitaladmin@newagehealth.org\"}"
+                }
+            }
+        },
+        "SuccessResponse": {
+          "type": "object",
+          "properties": {
+            "status_code": {
+              "type": "number",
+              "example": 200
+            },
+            "message": {
+              "type": "string",
+              "example": "success"
+            },
+            "data": {
+              "type": "string",
+              "example": null
+            }
+          }
+        },
+        "User": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "John"
+            },
+            "password": {
+              "type": "string",
+              "example": "John@31"
+            }
+          }
+        },
+        "UserLoginResponse": {
+          "type": "object",
+          "properties": {
+            "status_code": {
+              "type": "number",
+              "example": 200
+            },
+            "message": {
+              "type": "string",
+              "example": null
+            },
+            "data": {
+                "type": "string",
+                "example": "{\"org_id\":\"c37d2796-2886-49f3-bcdd-f71240e1f936\",\"org_name\":\"NewAge Health\"}"
+            }
+          }
+        },
+        "Id": {
+          "type": "object",
+          "properties": {
+            "org_id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "c37d2796-2886-49f3-bcdd-f71240e1f936"
+            },
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "cf262e36-022b-4032-b4a5-e73b26406607"
+            }
+          }
+        },
+        "SmartLinkFetch": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "a09f68ae-62bb-4b94-8945-27ab59e34e1a"
+            },
+            "org_id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "c37d2796-2886-49f3-bcdd-f71240e1f936"
+            },
+            "name": {
+              "type": "string",
+              "example": "EXO-LINK"
+            }
+          }
+        },
+        "SmartlinkCreationRequest": {
+          "type": "object",
+          "properties": {
+            "org_id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "c37d2796-2886-49f3-bcdd-f71240e1f936"
+            }
+          }
+        },
+        "SmartlinkCreationResponse": {
+          "type": "object",
+          "properties": {
+            "status_code": {
+              "type": "number",
+              "example": 200
+            },
+            "message": {
+              "type": "string",
+              "example": null
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"name\":\"EXO-LINK\",\"id\":\"58a2f272-6203-4074-99e4-1513bb8f7383\"}"
+            }
+          }
+        },
+        "SmartlinkUpdationRequest": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "a09f68ae-62bb-4b94-8945-27ab59e34e1a"
+            },
+            "org_id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "c37d2796-2886-49f3-bcdd-f71240e1f936"
+            },
+            "name": {
+              "type": "string",
+              "example": "EXO-LINK"
+            }
+          }
+        },
+        "ConnectionCreationRequest": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "a09f68ae-62bb-4b94-8945-27ab59e34e1a"
+            },
+            "org_id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "c37d2796-2886-49f3-bcdd-f71240e1f936"
+            },
+            "connections": {
+              "type": "object",
+              "properties": {
+                "dicom": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "example": "node"
+                      },
+                      "aetitle": {
+                        "type": "string",
+                        "example": "aetitle"
+                      },
+                      "host_name": {
+                        "type": "string",
+                        "example": "host_name"
+                      },
+                      "node_type": {
+                        "type": "string",
+                        "example": "ROUTER_SCU",
+                        "enum": [
+                          "OTHER_SCU",
+                          "ROUTER_SCP",
+                          "ROUTER_SCU",
+                          "PACS",
+                          "ROUTER_MWL_SCP",
+                          "ROUTER_MWL_SCU",
+                          "MODALITY"
+                        ]
+                      },
+                      "port": {
+                        "type": "number",
+                        "example": 2000
+                      },
+                      "status": {
+                        "type": "string",
+                        "example": "ACTIVE",
+                        "enum": [
+                          "ACTIVE",
+                          "INACTIVE"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ConnectionCreationResponse": {
+          "type": "object",
+          "properties": {
+            "status_code": {
+              "type": "number",
+              "example": 200
+            },
+            "message": {
+              "type": "string",
+              "example": null
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"dicom\":[\"{\\\"name\\\":\\\"EXO-LINK\\\",\\\"conn_id\\\":\\\"8300485d-458f-46e4-bc02-ee708d722987\\\"}\"]}"
+            }
+          }
+        },
+        "ConnectionUpdationRequest": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "a09f68ae-62bb-4b94-8945-27ab59e34e1a"
+            },
+            "org_id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "c37d2796-2886-49f3-bcdd-f71240e1f936"
+            },
+            "connections": {
+              "type": "object",
+              "properties": {
+                "dicom": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "conn_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "a09f68ae-62bb-4b94-8945-27ab59e34e1a"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "node"
+                      },
+                      "aetitle": {
+                        "type": "string",
+                        "example": "aetitle"
+                      },
+                      "host_name": {
+                        "type": "string",
+                        "example": "host_name"
+                      },
+                      "node_type": {
+                        "type": "string",
+                        "example": "ROUTER_SCU",
+                        "enum": [
+                          "OTHER_SCU",
+                          "ROUTER_SCP",
+                          "ROUTER_SCU",
+                          "PACS",
+                          "ROUTER_MWL_SCP",
+                          "ROUTER_MWL_SCU",
+                          "MODALITY"
+                        ]
+                      },
+                      "port": {
+                        "type": "number",
+                        "example": 2000
+                      },
+                      "status": {
+                        "type": "string",
+                        "example": "ACTIVE",
+                        "enum": [
+                          "ACTIVE",
+                          "INACTIVE"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ConnectionUpdationResponse": {
+          "type": "object",
+          "properties": {
+            "status_code": {
+              "type": "number",
+              "example": 200
+            },
+            "message": {
+              "type": "string",
+              "example": null
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"id\":\"58a2f272-6203-4074-99e4-1513bb8f7383\",\"org_id\":\"c37d2796-2886-49f3-bcdd-f71240e1f936\",\"last_updated\":\"2023-09-05T07:41:06.996Z\"}"
+            }
+          }
+        },
+        "GetConnection": {
+          "type": "object",
+          "properties": {
+            "status_code": {
+              "type": "number",
+              "example": 200
+            },
+            "message": {
+              "type": "string",
+              "example": null
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"id\":\"cf262e36-022b-4032-b4a5-e73b26406607\",\"connections\":{\"dicom\":[{\"conn_id\":\"524ebdfd-6bcd-40f6-beb9-d02d84ba65e0\",\"name\":\"node\",\"aetitle\":\"ae title\",\"host_name\":\"host\",\"node_type\":\"ROUTER_SCP\",\"port\":8000,\"status\":\"ACTIVE\"}]}}"
+            }
+          }
+        },
+        "Configuration": {
+          "type": "object",
+          "properties": {
+            "smartlink": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "cf262e36-022b-4032-b4a5-e73b26406607"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "EXO-LINK"
+                },
+                "org_name": {
+                  "type": "string",
+                  "example": "EXO-LINK"
+                },
+                "org_id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c37d2796-2886-49f3-bcdd-f71240e1f936"
+                },
+                "server_message_link": {
+                  "type": "string",
+                  "example": "wss://localhost:3003/ws"
+                },
+                "api_link": {
+                  "type": "string",
+                  "format": "uri",
+                  "example": "https://localhost:3003"
+                },
+                "last_updated": {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "2023-09-05T09:30:11.492Z"
+                }
+              }
+            },
+            "connections": {
+              "type": "object",
+              "properties": {
+                "dicom": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "conn_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "a09f68ae-62bb-4b94-8945-27ab59e34e1a"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "node"
+                      },
+                      "aetitle": {
+                        "type": "string",
+                        "example": "aetitle"
+                      },
+                      "host_name": {
+                        "type": "string",
+                        "example": "host_name"
+                      },
+                      "node_type": {
+                        "type": "string",
+                        "example": "ROUTER_SCU",
+                        "enum": [
+                          "OTHER_SCU",
+                          "ROUTER_SCP",
+                          "ROUTER_SCU",
+                          "PACS",
+                          "ROUTER_MWL_SCP",
+                          "ROUTER_MWL_SCU",
+                          "MODALITY"
+                        ]
+                      },
+                      "port": {
+                        "type": "number",
+                        "example": 2000
+                      },
+                      "status": {
+                        "type": "string",
+                        "example": "ACTIVE",
+                        "enum": [
+                          "ACTIVE",
+                          "INACTIVE"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "certificate": {
+              "type": "object",
+              "properties": {
+                "client": {
+                  "type": "string"
+                },
+                "root": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "SmartLinkConfigurationResponse": {
+          "type": "object",
+          "properties": {
+            "status_code": {
+              "type": "number",
+              "example": 200
+            },
+            "message": {
+              "type": "string",
+              "example": null
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"smartlink\":{\"id\":\"cf262e36-022b-4032-b4a5-e73b26406607\",\"name\":\"EXO-LINK\",\"org_id\":\"c37d2796-2886-49f3-bcdd-f71240e1f936\",\"org_name\":\"NewAge Health\",\"last_updated\":\"2023-09-05T11:34:07.078Z\"},\"connections\":{\"dicom\":[{\"conn_id\":\"524ebdfd-6bcd-40f6-beb9-d02d84ba65e0\",\"name\":\"node\",\"aetitle\":\"ae title\",\"host_name\":\"host\",\"node_type\":\"ROUTER_SCP\",\"port\":8000,\"status\":\"ACTIVE\"}]}}"
+            }
+          }
+        },
+        "LatestInstallerResponse": {
+          "type": "object",
+          "properties": {
+            "status_code": {
+              "type": "number",
+              "example": 200
+            },
+            "message": {
+              "type": "string",
+              "example": null
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"version\":\"1.0.0\",\"installer_name\":\"ExoSmartLinkClient_1_0_0_0.exe\"}"
+            }
+          }
+        },
+        "LatestInstallerUpdateRequest": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "string",
+              "example": "1.5.0"
+            },
+            "installer_name": {
+              "type": "string",
+              "example": "smarlink_client_1_1_5_0.exe"
+            }
+          }
+        },
+        "InstallerVersionResponse": {
+          "type": "object",
+          "properties": {
+            "status_code": {
+              "type": "number",
+              "example": 200
+            },
+            "message": {
+              "type": "string",
+              "example": null
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"id\":\"cf262e36-022b-4032-b4a5-e73b26406607\",\"org_id\":\"c37d2796-2886-49f3-bcdd-f71240e1f936\",\"version\":\"1.5.0\"}"
+            }
+          }
+        },
+        "InstallerVersionUpdateRequest": {
+          "type": "object",
+          "properties": {
+            "org_id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "c37d2796-2886-49f3-bcdd-f71240e1f936"
+            },
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "cf262e36-022b-4032-b4a5-e73b26406607"
+            },
+            "version": {
+              "type": "string",
+              "example": "1.5.0"
+            }
+          }
+        },
+        "InstallerDownloadUrl": {
+            
+          "type": "object",
+          "properties": {
+            "status_code": {
+                "type": "number",
+                "example": 200
+            },
+            "message": {
+                "type": "string",
+                "example": null
+            },
+            "data": {
+                "type": "string",
+                "example": "{\"url\":\"https://exo-image-storage-poc.s3.put_your_aws_region.amazonaws.com/smartlink_installers/ExoSmartLinkClient_1_0_0_0.exe?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA6LP3BDTBXHBJKRFV%2F20230906%2FPUT_YOUR_AWS_REGION%2Fs3%2Faws4_request&X-Amz-Date=20230906T121526Z&X-Amz-Expires=900&X-Amz-Signature=24563b56fe8b2c8b9ad7027802dbe4977c93e06b4523eca2800e69d811ea6be4&X-Amz-SignedHeaders=host\"}"
+            }
+          }
+        },
+        "StatusUpdateRequest": {
+          "type": "object",
+          "properties": {
+            "org_id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "c37d2796-2886-49f3-bcdd-f71240e1f936"
+            },
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "cf262e36-022b-4032-b4a5-e73b26406607"
+            },
+            "message": {
+              "type": "string",
+              "example": "RESUMED"
+            }
+          }
+        },
+        "StatusUpdateResponse": {
+          "type": "object",
+          "properties": {
+            "status_code": {
+              "type": "number",
+              "example": 200
+            },
+            "message": {
+              "type": "string",
+              "example": null
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"id\":\"cf262e36-022b-4032-b4a5-e73b26406607\",\"org_id\":\"c37d2796-2886-49f3-bcdd-f71240e1f936\",\"last_status_updated\":\"2023-09-05T11:54:07.296Z\"}"
+            }
+          }
+        },
+        "StatusFetchResponse": {
+          "type": "object",
+          "properties": {
+            "status_code": {
+              "type": "number",
+              "example": 200
+            },
+            "message": {
+              "type": "string",
+              "example": null
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"id\":\"cf262e36-022b-4032-b4a5-e73b26406607\",\"status\":\"PAUSED\",\"last_status_updated\":\"2023-09-05T12:05:54.494Z\"}"
+            }
+          }
+        },
+        "Notify": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "cf262e36-022b-4032-b4a5-e73b26406607"
+            },
+            "org_id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "c37d2796-2886-49f3-bcdd-f71240e1f936"
+            },
+            "message_type": {
+              "type": "string",
+              "example": "UPDATE_CONFIGURATION"
+            },
+            "message": {
+              "type": "object",
+              "properties": {
+                "MessageBody": {
+                  "type": "string",
+                  "example": "{'content': 'Configuration Updated'}"
+                },
+                "MessageType": {
+                  "type": "string",
+                  "example": "UPDATE_CONFIGURATION"
+                },
+                "MessageReceiver": {
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "776087da-4d88-4008-a7b4-6ff16d2e4a2b"
+                }
+              }
+            }
+          }
+        },
+        "CertificateContent": {
+          "type": "object",
+          "properties": {
+            "status_code": {
+              "type": "number",
+              "example": 200
+            },
+            "message": {
+              "type": "string",
+              "example": null
+            },
+            "data": {
+              "type": "string",
+              "example": "{\"certificate_format\":\".pfx\",\"certificate_content\":{\"type\":\"Buffer\",\"data\":[48,130,9,145,2,1,3,48,130,9,87,6,9,42,134,72,134,247,13,1,7,1,160,130,9,72,4,130,9,68,48,130,9,64,48,130,3,247,6,9,42,134,72,134,247,13,1,7,6,160,130,3,232,48,130,3,228,2,1,0,48,130,3,221,6,9,42,134,72,134,247,13,1,7,1,48,28,6,10,42,134,72,134,247,13,1,12,1,6,48,14,4,8,174,207,118,95,16,128,190,232,2,2,8,0,128,130,3,176,167,107,239,13,150,123,230,57,129,166,33,167,251,2,93,24,167,183,173,5,209,49,56,142,60,226,190,159,143,194,210,189,90,105,38,1,13,106,60,51,27,42,187,137,235,166,201,108,197,81,165,60,216,255,239,184,55,11,201,247,225,184,46,205,73,208,54,204,85,189,160,125,82,226,80,8,21,62,151,217,206,225,137,100,238,31,79,192,133,91,224,246,190,117,75,246,91,225,110,197,183,35,211,29,155,121,66,135,170,189,129,6,145,6,232,6,222,47,211,91,189,230,55,92,2,177,127,240,115,95,169,247,60,229,120,101,33,179,150,146,216,49,45,152,135,76,199,119,69,17,80,94,85,167,236,198,119,108,32,116,104,81,15,65,204,90,84,251,89,189,241,45,30,37,101,109,60,135,237,128,182,197,62,136,102,50,190,91,55,115,249,3,184,2,113,128,174,31,191,244,204,238,132,36,200,195,239,124,170,213,66,165,203,22,109,103,154,22,207,204,245,17,165,65,189,117,23,24,80,252,83,96,114,199,79,47,193,116,33,231,75,48,38,227,176,150,56,226,182,212,157,148,88,116,104,115,171,232,101,19,248,62,70,149,50,216,183,112,82,214,179,181,20,98,240,231,241,228,148,187,181,152,40,54,155,120,228,182,209,57,47,178,127,107,232,31,41,71,207,8,192,59,201,177,21,83,43,28,62,74,239,68,102,237,101,53,27,126,148,100,146,36,18,69,201,6,105,255,123,107,84,189,249,204,38,21,207,65,186,127,122,227,148,62,20,102,210,42,57,178,192,134,33,131,80,37,217,175,81,155,35,71,146,202,252,178,69,34,104,206,112,217,196,255,159,9,108,15,23,249,111,228,80,253,232,167,207,168,157,105,54,107,106,108,173,148,105,223,18,188,182,240,246,183,252,250,225,104,234,178,160,235,29,51,176,113,78,124,43,49,202,65,47,168,115,21,132,70,148,173,157,184,16,55,163,111,202,208,112,123,54,57,195,118,101,4,197,191,244,8,140,12,244,103,12,251,236,244,173,240,34,71,108,167,157,47,6,69,225,112,252,236,42,43,36,99,1,6,78,90,217,76,127,145,73,238,247,128,196,250,107,64,42,78,114,195,192,107,76,154,12,42,54,148,122,119,44,211,167,196,112,5,69,236,1,57,79,128,226,66,227,212,88,153,183,38,14,35,207,106,115,175,158,189,236,218,250,152,112,224,25,128,223,120,42,231,249,252,96,67,110,137,130,172,121,43,67,165,103,29,106,135,107,95,199,175,7,34,105,27,179,125,32,88,40,194,61,21,176,123,122,164,131,172,204,93,177,150,176,241,157,7,138,14,134,210,84,239,148,12,72,23,183,121,104,112,121,43,196,124,102,106,43,219,165,138,2,201,232,173,53,63,210,97,161,228,22,79,185,83,231,93,196,116,208,22,242,222,44,69,32,20,112,102,139,131,220,163,64,123,166,91,181,11,133,223,35,25,118,255,31,170,254,28,11,167,229,151,36,198,185,115,137,234,138,34,189,24,137,250,233,250,156,123,81,191,162,243,58,120,78,154,179,234,10,242,85,152,74,44,60,39,127,210,53,146,59,179,232,255,25,74,203,140,74,250,7,174,140,74,248,126,107,99,177,29,192,138,237,36,87,15,232,25,125,48,150,207,186,7,195,56,205,238,105,176,201,66,142,92,193,244,196,180,176,184,187,229,114,28,125,47,8,40,160,226,217,43,22,201,123,74,111,69,0,195,216,20,33,48,171,163,87,76,16,202,48,76,141,112,197,174,17,2,106,18,68,222,175,143,109,133,180,155,225,179,237,122,195,247,76,29,196,167,207,104,183,7,93,173,122,152,39,239,129,178,155,90,33,70,172,44,50,143,83,27,237,218,169,140,133,100,144,103,182,140,153,186,139,166,194,33,188,199,139,8,231,153,129,212,169,129,91,45,99,37,125,43,214,133,132,48,22,211,201,241,121,93,147,36,252,131,107,185,44,96,44,223,134,251,195,109,94,23,147,61,35,152,198,39,203,212,13,214,69,75,130,93,146,166,146,22,27,200,183,208,55,207,195,31,181,12,48,122,134,152,16,56,48,227,213,132,154,216,59,130,31,153,83,58,120,56,249,64,48,130,5,65,6,9,42,134,72,134,247,13,1,7,1,160,130,5,50,4,130,5,46,48,130,5,42,48,130,5,38,6,11,42,134,72,134,247,13,1,12,10,1,2,160,130,4,238,48,130,4,234,48,28,6,10,42,134,72,134,247,13,1,12,1,3,48,14,4,8,45,35,31,245,85,40,111,174,2,2,8,0,4,130,4,200,32,155,254,0,23,240,81,205,199,254,97,2,62,60,189,211,81,244,203,55,231,66,72,8,245,44,73,27,157,7,11,43,4,60,31,21,46,227,217,203,255,83,9,110,234,208,216,17,143,186,162,138,170,198,232,175,64,233,111,51,37,216,203,10,128,44,14,205,181,175,100,79,243,254,88,101,135,122,236,153,99,173,100,242,56,100,205,185,21,141,44,48,14,158,4,106,174,217,149,246,183,0,5,48,123,242,245,195,233,64,51,253,126,95,13,164,43,161,225,116,111,138,181,113,3,247,76,4,115,253,123,226,62,100,142,149,51,31,22,56,31,203,212,59,66,17,207,176,3,136,39,130,95,141,192,208,124,141,55,127,191,39,14,196,233,81,111,42,107,222,60,180,241,157,57,158,37,235,88,81,239,191,106,6,84,11,230,124,226,73,179,82,48,83,40,85,110,4,99,201,147,92,89,77,4,92,106,86,93,0,50,196,46,112,161,185,77,81,174,28,191,195,86,150,254,126,255,142,58,10,241,158,11,176,158,36,203,197,41,91,230,178,68,19,171,216,196,35,4,131,40,242,62,47,51,109,141,226,5,186,131,41,30,179,106,184,63,217,31,208,201,241,9,247,180,79,191,93,245,219,185,255,220,207,122,103,171,25,150,247,112,196,158,146,231,6,239,192,91,108,217,207,201,236,104,91,68,77,175,154,103,238,94,12,67,94,89,9,44,220,0,67,65,118,254,58,173,19,128,227,2,233,197,240,207,244,39,176,41,187,2,101,228,175,2,153,87,59,43,252,225,123,220,211,113,38,115,84,192,126,214,133,130,72,177,240,29,193,192,168,215,1,23,63,255,189,212,244,81,244,4,126,191,46,243,133,126,160,33,76,243,185,161,146,48,130,1,19,110,83,152,112,96,253,9,182,97,232,117,147,209,170,153,182,69,105,53,97,252,218,79,78,81,203,120,106,104,184,203,123,254,212,216,50,31,135,122,131,70,140,239,193,206,25,187,30,86,161,72,58,2,107,79,65,216,180,204,211,170,121,191,12,224,165,226,252,133,37,38,72,79,194,113,219,241,240,65,196,123,205,224,21,23,224,111,62,24,227,14,124,165,28,93,229,150,0,43,174,95,14,184,39,175,164,95,98,241,36,41,199,30,197,162,30,205,126,208,163,74,39,24,108,249,72,176,135,195,229,250,183,132,52,81,16,57,46,208,242,121,112,114,94,183,19,84,127,215,41,191,76,46,175,212,95,211,15,244,87,174,11,56,87,9,24,185,101,140,9,141,147,38,187,96,234,243,128,189,106,194,166,73,193,6,119,247,176,148,139,46,216,122,159,131,115,190,68,35,44,51,154,143,248,200,231,155,53,224,194,29,75,246,71,192,114,148,98,64,127,212,181,121,110,0,158,195,122,15,161,227,203,108,192,205,65,205,53,109,15,20,53,136,213,199,218,114,191,115,63,191,203,135,101,24,56,50,136,238,112,170,15,44,249,138,78,220,113,48,106,210,71,2,96,24,99,36,49,85,108,56,100,111,233,98,12,239,89,243,6,149,47,138,255,65,206,186,11,177,222,58,22,103,208,8,89,81,125,221,155,66,246,221,200,253,72,99,54,156,194,153,134,240,165,206,218,27,182,46,36,89,1,198,79,241,239,142,208,246,107,102,211,245,180,94,96,173,152,210,128,141,151,230,108,96,98,117,168,34,77,101,152,233,236,212,83,19,136,61,51,198,26,188,193,108,232,246,10,83,39,139,8,126,148,184,48,118,107,247,1,237,158,50,51,116,193,174,212,253,139,188,81,38,27,39,139,165,43,219,180,67,181,225,199,93,148,224,7,82,2,192,134,84,20,240,25,60,174,193,248,86,223,183,94,141,0,205,69,95,48,39,16,216,179,21,175,220,109,145,184,115,187,239,184,176,23,96,218,96,75,223,5,146,240,231,253,160,94,189,67,143,120,136,152,208,172,161,14,115,141,245,77,75,243,18,54,56,180,166,117,234,157,250,244,194,145,229,179,18,160,6,9,174,50,45,113,207,47,21,178,221,126,174,154,39,102,198,132,122,93,235,89,27,209,138,253,26,248,38,250,169,30,191,91,22,199,133,174,26,213,171,59,27,166,229,77,190,169,181,239,135,159,228,117,48,211,157,46,76,149,85,157,217,88,91,210,62,13,61,113,105,225,83,174,252,149,187,23,254,86,221,229,22,162,213,122,229,154,39,59,38,82,13,191,71,253,137,104,25,182,203,60,146,170,145,72,183,198,223,137,171,4,52,129,86,34,207,158,36,211,215,224,34,31,231,223,136,84,173,215,104,138,120,102,150,233,175,173,129,203,244,21,68,174,113,31,147,54,211,135,47,74,88,32,106,200,253,10,185,1,203,124,176,236,10,186,151,156,126,157,25,79,90,67,180,252,125,150,168,166,83,254,83,178,171,144,99,110,224,8,40,164,106,220,163,127,138,84,88,233,80,102,131,252,198,5,156,148,236,78,161,147,67,178,148,182,86,38,170,16,230,54,55,118,23,100,192,162,51,82,13,50,10,149,224,235,4,208,70,8,205,172,140,84,64,145,149,66,131,246,105,152,209,247,17,41,163,183,9,119,226,207,108,18,49,15,100,113,37,155,145,96,170,53,212,92,202,165,42,98,137,46,127,94,132,89,134,22,206,184,95,166,122,244,149,122,232,157,20,30,220,141,185,160,210,122,151,171,70,246,230,19,236,92,81,150,52,106,144,238,86,136,6,102,94,145,49,37,48,35,6,9,42,134,72,134,247,13,1,9,21,49,22,4,20,184,68,224,240,219,196,27,49,228,92,164,82,221,213,244,175,104,126,73,39,48,49,48,33,48,9,6,5,43,14,3,2,26,5,0,4,20,111,126,50,29,216,130,9,111,55,144,14,133,168,14,248,202,90,202,87,78,4,8,239,242,67,6,243,30,23,118,2,2,8,0]}}"
+            }
+          }
+        },
+        "CertificateGeneration": {
+          "type": "object",
+          "properties": {
+            "org_id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "c37d2796-2886-49f3-bcdd-f71240e1f936"
+            },
+            "cert_password": {
+              "type": "number",
+              "example": 1234
+            }
+          }
+        }
+      }
+    }
+  }

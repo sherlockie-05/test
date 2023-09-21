@@ -1,0 +1,38 @@
+[
+    {
+      "org_id": "c37d2796-2886-49f3-bcdd-f71240e1f936",
+      "name": "John",
+      "password": "John@31",
+      "country": "US",
+      "state": "California",
+      "city": "San Francisco",
+      "org_name": "NewAge Health",
+      "organizationalUnit": "Pulmonology ",
+      "commonname": "newagehealth.org",
+      "email": "hospitaladmin@newagehealth.org"
+    },
+    {
+      "org_id": "8292f444-59cc-4412-ac7a-8ab85cd32956",
+      "name": "Andrew",
+      "password": "cas@423",
+      "country": "DE",
+      "state": "Bavaria",
+      "city": "Munich",
+      "org_name": "BayerHealth",
+      "organizationalUnit": "General",
+      "commonname": "bayerhealth.com",
+      "email": "it@bayerhealth.org"
+    },
+    {
+      "org_id": "93e33fb8-cf12-4368-a4be-e698612b6001",
+      "name": "William",
+      "password": "Wills@IN",
+      "country": "IN",
+      "state": "GOA",
+      "city": "GOA",
+      "org_name": "MARKUS Hospitals",
+      "organizationalUnit": "Diagnosis",
+      "commonname": "markusgoa@markushopitals.com",
+      "email": "hello@markushopitals.com"
+    }
+  ]

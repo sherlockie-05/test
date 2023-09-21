@@ -1,0 +1,16 @@
+FROM node:18-alpine
+
+WORKDIR /usr/app
+
+COPY package*.json ./
+
+RUN npm install
+
+RUN apk add --update openssl && rm -rf /var/cache/apk/*
+
+COPY . .
+
+ENV NODE_ENV development
+
+EXPOSE 5212
+CMD [ "npm", "start" ]
